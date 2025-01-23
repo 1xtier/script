@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-dir = ''
-ssh_path = ''
+dir = '' #The full software path of the config file in the .ssh directory
+ssh_path = '' #The full path of the private key file
 def ssha():
     hosts = input("Alias-name: ")
     address = input("IP-Address: ")
