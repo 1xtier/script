@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+import argparse
+
+parser = argparse.ArgumentParser()
+# параметр выбора типа создания подключения!
+parser.add_argument('-t', '--type', choices=("static", "vlans", "dhcp"), default="dhcp", help="Выберите тип подключения!")
+
+args = parser.parse_args()
+def dhcp():
+        name = input("Name-interface: ")
+        interface = input("DEVICE:")
+        with open(f"./ifcfg-{name}", "w") as files:
+                config  = {'TYPE=Ethernet\n'
+                           'BOOTPRONTO=dhcp\n'
+                          f'NAME={name}\n'
+                          f'DEVICE={interface}\n'
+                           'ONBOOT=yes\n'}
+                files.writelines(config)
+                print(f'PLEASE RUN COMMAND: ifup {name}')
+                files.close
+def static():
+        name = input("Name-interface:")
+        interface = input("DIVICE: ")
+        ip = input("IP-Address: ")
+        gw = input("Gateway: ")
+        nm = input("Netmask: ")
+        dns1 = input("DNS-Server1: ")
+        dns2 = input("DNS-Server2: ")
+        with open(f"./ifcfg-{name}", "w") as files:
+                config = {f'DEVICE={interface}\n'
+                           'BOOTPROTO=static\n'
+                          f'IPADDR={ip}\n'
+                          f'NETMASK={nm}\n'
+                          f'GATEWAY={gw}\n'
+                          f'DNS1={dns1}\n'
+                          f'DNS2={dns2}\n'
+                           'ONBOOT=yes\n'}
+                files.writelines(config)
+                print(f'PLEASE RUN COMMAND: ifup {name}')
+                files.close
+def vlans():
+        name = input("Name-interface:")
+        interface = input("DIVICE: ")
+        ip = input("IP-Address: ")
+        gw = input("Gateway: ")
+        nm = input("Netmask: ")
+        dns1 = input("DNS-Server1: ")
+        dns2 = input("DNS-Server2: ")
+        vlan_name = input("VLAN-NAME: ")
+        vlan_id = input("VLAN-ID: ")
+        with open(f'./ifcfg-{name}', 'w') as files:
+                config = {'ONBOOT=yes\n'
+                          'TYPE=Ethernet\n'
+                          'VLAN=yes\n'
+                          'VLAN_NAME_TYPE=\n'
+                          f'DEVICE={vlan_name}\n'
+                          f'PHYSDEV={interface}\n'
+                          f'VLAN_ID={vlan_id}\n'
+                           'BOOTPROTO=static\n'
+                          f'IPADDR={ip}\n'
+                          f'NETMASK={nm}\n'
+                          f'GATEWAY={gw}\n'
+                          f'DNS1={dns1}\n'
+                          f'DNS2={dns2}\n'
+                          }
+                files.writelines(config)
+                print(f'PLEASE RUN COMMAND: ifup {name}')
+                files.close
+if args.type == "dhcp":
+        dhcp()
+elif args.type == "static":
+        static()
+elif args.type == "vlans":
+        vlans()
+else:
+        print("Sorry")

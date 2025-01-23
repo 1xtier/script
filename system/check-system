@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import psutil
+import time
+import socket 
+from rich.console import Console
+from rich.panel import Panel
+from rich import print
+def monitor_server():
+    hostname = socket.gethostname()
+    while True:
+        console = Console()
+        cpu_usage = psutil.cpu_percent(interval=1, percpu=False)
+        memory =  psutil.virtual_memory()
+        disk = psutil.disk_usage('/')
+        net = psutil.net_io_counters()
+        #print("-" * 40)
+        text = Panel.fit(
+                    f'Мониторинг серверара: [bold red]{hostname}[/bold red]\n'
+                    f"Загрузка CPU: [bold green]{cpu_usage}[/bold green]\n"
+                    f"Память:[bold green]{memory.percent}%[/bold green] Использовано ([bold cyan]{memory.used / 1e+9:.2f}[/bold cyan] GB из [bold yellow]{memory.total / 1e+9:2f}[/bold yellow]) GB\n"
+                    f"DISK:[bold green]{disk.percent}%[/bold green] использовано ([bold cyan]{disk.used / 1e+9:.2f}[/bold cyan] GB из [bold yellow]{disk.total / 1e+9:.2f}[/bold yellow] GB)\n"
+                    f"Network: Outpus [bold cyan]{net.bytes_sent / 1e+6:.2f}[/bold cyan], Prinato [bold yellow]{net.bytes_recv / 1e+6:.2f}[/bold yellow]"
+                     )
+        console.print(text)
+        exit()
+monitor_server()
