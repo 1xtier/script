@@ -1,3 +1,8 @@
+'''
+Add ssh alias
+Adds the ssh alias to a couple of commands
+Coded By floki
+'''
 #!/usr/bin/env python3
 
 dir = '' #The full software path of the config file in the .ssh directory
