@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 import argparse
+import subprocess
+import socket
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+from rich import print
+
 
 parser = argparse.ArgumentParser()
 # параметр выбора типа создания подключения!
-parser.add_argument('-t', '--type', choices=("static", "vlans", "dhcp"), default="dhcp", help="Выберите тип подключения!")
+parser.add_argument('-t', '--type', choices=("static", "vlans", "dhcp", "route-info"), default="dhcp", help="Выберите тип подключения!")
 
 args = parser.parse_args()
 def dhcp():
@@ -18,6 +25,8 @@ def dhcp():
                 files.writelines(config)
                 print(f'PLEASE RUN COMMAND: ifup {name}')
                 files.close
+
+
 def static():
         name = input("Name-interface:")
         interface = input("DIVICE: ")
@@ -38,6 +47,8 @@ def static():
                 files.writelines(config)
                 print(f'PLEASE RUN COMMAND: ifup {name}')
                 files.close
+
+
 def vlans():
         name = input("Name-interface:")
         interface = input("DIVICE: ")
@@ -66,11 +77,31 @@ def vlans():
                 files.writelines(config)
                 print(f'PLEASE RUN COMMAND: ifup {name}')
                 files.close
+
+
+def route_info():
+        hostname = socket.gethostname()
+        table = Table(title=f"Routes - {hostname}")
+        table.add_column("IP", justify="right", style="cyan", no_wrap=True)
+        table.add_column("Gateway", style="magenta")
+        table.add_column("Netmask", style="magenta")
+        table.add_column("Metricks", style="magenta")
+        table.add_column("ETH", justify="right", style="green")
+        IP = subprocess.check_output("route -n | awk 'NR > 2' | awk '{print $1}'", shell=True, text=True)
+        GATEWAY = subprocess.check_output("route -n | awk 'NR > 2' | awk '{print $2}'", shell=True, text=True)
+        NETMASK = subprocess.check_output("route -n | awk 'NR > 2' | awk '{print $3}'", shell=True, text=True)
+        ETH = subprocess.check_output("route -n | awk 'NR > 2' | awk '{print $8}'", shell=True, text=True)
+        METRICK = subprocess.check_output("route -n | awk 'NR > 2' | awk '{print $5}'", shell=True, text=True)
+        table.add_row(f"{IP}", f"{GATEWAY}", f"{NETMASK}", f"{METRICK}", f"{ETH}")
+        panel = Panel.fit(table)
+        print(panel)
 if args.type == "dhcp":
         dhcp()
 elif args.type == "static":
         static()
 elif args.type == "vlans":
         vlans()
+elif args.type == "route-info":
+        route_info()
 else:
         print("Sorry")
