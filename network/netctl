@@ -13,6 +13,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-t', '--type', choices=("static", "vlans", "dhcp", "route-info"), default="dhcp", help="Выберите тип подключения!")
 
 args = parser.parse_args()
+# Function create config dhcp
 def dhcp():
         name = input("Name-interface: ")
         interface = input("DEVICE:")
