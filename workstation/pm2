@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+def lxc_info(self):
+        proxmox = ProxmoxAPI(f'{self.ip}', user=f'{self.user}@pam', password=f'{self.secret}', verify_ssl=False, service='PVE')
+        for node in proxmox.nodes.get():
+            if node['status'] == 'online':
+                for vm in proxmox.nodes(node['node']).lxc.get():
+                    if vm['status'] == 'stopped':
+                        status1 = vm['status']
+                        print(vm['vmid'], vm['name'], f"\033[94m {status1} \033[0m")
+                    else:
+                        status = vm['status']
+                        print(vm['vmid'], vm['name'], f"\033[92m {status} \033[0m", "PID=", vm['pid'])
