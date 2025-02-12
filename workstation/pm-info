@@ -1,0 +1,63 @@
+#!/usr/bin/env python3 
+import argparse
+import os
+import requests
+import proxmoxer
+import configparser
+from proxmoxer import ProxmoxAPI
+parser = argparse.ArgumentParser()
+parser.add_argument('-t', '--type', choices=("nodes", "vm", "lxc"), default="lxc", help="Выбирете lxc/vm")
+args = parser.parse_args()
+class proxmoxapi:
+    def config(self):
+        user_os = os.getlogin()
+        config = configparser.ConfigParser()
+        config.read(f'/home/{user_os}/.myconfig/config.ini')
+        self.user = config.get('Config', 'user')
+        self.ip = config.get('Config', 'address')
+        self.secret = config.get('Config', 'password')
+
+    def node(self):
+        proxmox = ProxmoxAPI(f'{self.ip}', user=f'{self.user}@pam', password=f'{self.secret}', verify_ssl=False, service='PVE')
+        for node in proxmox.nodes.get():
+            print(node['node'], node['status'])
+
+    def lxc_info(self):
+        proxmox = ProxmoxAPI(f'{self.ip}', user=f'{self.user}@pam', password=f'{self.secret}', verify_ssl=False, service='PVE')
+        for node in proxmox.nodes.get():
+            if node['status'] == 'online':
+                for vm in proxmox.nodes(node['node']).lxc.get():
+                    if vm['status'] == 'stopped':
+                        status1 = vm['status']
+                        print(vm['vmid'], vm['name'], f"\033[94m {status1} \033[0m")
+                    else:
+                        status = vm['status']
+                        print(vm['vmid'], vm['name'], f"\033[92m {status} \033[0m", "PID=", vm['pid'])
+
+    def vm_info(self):
+        proxmox = ProxmoxAPI(f'{self.ip}', user=f'{self.user}@pam', password=f'{self.secret}', verify_ssl=False, service='PVE')
+        for node in proxmox.nodes.get():
+            if node['status'] == 'online':
+                for vm in proxmox.nodes(node['node']).qemu.get():
+                    if vm['status'] == 'stopped':
+                        status1 = vm['status']
+                        print(vm['vmid'], vm['name'], f"\033[91m {status1} \033[0m")
+                    else:
+                        status = vm['status']
+                        print(vm['vmid'], vm['name'], f"\033[92m {status} \033[0m", "PID=", vm['pid'])
+
+if args.type == "lxc":
+    obj = proxmoxapi()
+    obj.config()
+    obj.lxc_info()
+elif args.type == "vm":
+    obj = proxmoxapi()
+    obj.config()
+    obj.vm_info()
+elif args.type == "nodes":
+    obj = proxmoxapi()
+    obj.config()
+    obj.node()
+else:
+    print("Sorry, no Atribute!")
+
