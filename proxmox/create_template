@@ -22,15 +22,15 @@ create_ubunut22.04() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -52,15 +52,15 @@ create_ubuntu24.04() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -81,15 +81,15 @@ create_alma8.10() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -110,15 +110,15 @@ create_alma9() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -139,16 +139,16 @@ create_rocky8.10() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
-# Create TEMPLATE
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
+
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
     qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
@@ -169,15 +169,15 @@ create_rocky9() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -199,15 +199,15 @@ create_debian11() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -228,15 +228,15 @@ create_debian12() {
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update
-    virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --ssh-inject cloud:file:/root/temp/id_ed25519.pub
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'chown -R cloud:cloud /home/cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --run-command 'systemctl enable --now qemu-guest-agent'
+    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    --install qemu-guest-agent \
+    --run-command 'useradd -m -s /bin/bash cloud' \
+    --root-password password:sorax \
+    --run-command 'mkdir -p /home/cloud/.ssh' \
+    --run-command 'usermod -aG sudo cloud' \
+    --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
+    --run-command 'chown -R cloud:cloud /home/cloud' \
+    --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
