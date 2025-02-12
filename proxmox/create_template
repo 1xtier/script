@@ -18,11 +18,13 @@ create_ubunut22.04() {
   TEMPLATE="https://cloud-images.ubuntu.com/jammy/20250207/jammy-server-cloudimg-amd64-disk-kvm.img"
   TEMP_PATH="/opt/"
   IMAGES="jammy-server-cloudimg-amd64-disk-kvm.img"
+  IMAGES2="jammy-server-cloudimg-amd64-disk-kvm.qcow2"
   SNIPPET=
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
+  qemu-img convert -f raw -O qcow2 $TEMP_PATH${IMAGES} $TEMP_PATH${IMAGES2}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH${IMAGES2} --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -33,13 +35,14 @@ create_ubunut22.04() {
     --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
+    qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
     qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
 rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH${IMAGES2}
 }
 
 create_ubuntu24.04() {
@@ -48,11 +51,13 @@ create_ubuntu24.04() {
   TEMPLATE="https://cloud-images.ubuntu.com/noble/20250122/noble-server-cloudimg-amd64.img"
   TEMP_PATH="/opt/"
   IMAGES="noble-server-cloudimg-amd64.img"
+  IMAGES2="noble-server-cloudimg-amd64.qcow2"
   SNIPPET=
 # Donwload images
   wget ${TEMPLATE} -P ${TEMP_PATH}
+  qemu-img convert -f raw -O qcow2 $TEMP_PATH${IMAGES} $TEMP_PATH${IMAGES2}
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH${IMAGES2} --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -63,13 +68,14 @@ create_ubuntu24.04() {
     --run-command 'systemctl enable --now qemu-guest-agent'
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
+    qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
     qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
 rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH${IMAGES2}
 }
 create_alma8.10() {
   NAME="alma8.10-template"
