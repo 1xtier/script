@@ -2,6 +2,7 @@
 
 set -e 
 STORAGE="storage-local"
+TEMP_PATH=/opt
 help_fo() {
   echo "--ubuntu22 | Create Template proxmox images Ubuntu 22.04"
   echo "--ubuntu24 | Create Template proxmox images Ubuntu 24.04"
@@ -13,18 +14,14 @@ help_fo() {
   echo "--debian12 | Create Template proxmox images Debian Linux 12"
 }
 create_ubunut22.04() {
-  NAME="ubuntu22.04-template"
-  VMID="8010"
-  TEMPLATE="https://cloud-images.ubuntu.com/jammy/20250207/jammy-server-cloudimg-amd64-disk-kvm.img"
-  TEMP_PATH="/opt/"
-  IMAGES="jammy-server-cloudimg-amd64-disk-kvm.img"
-  IMAGES2="jammy-server-cloudimg-amd64-disk-kvm.qcow2"
-  SNIPPET=
+  NAME=ubuntu22.04-template
+  VMID=8010
+  TEMPLATE=https://cloud-images.ubuntu.com/jammy/20250207/jammy-server-cloudimg-amd64-disk-kvm.img
+  IMAGES2="jammy-server-cloudimg-amd64-disk-kvm.img"
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
-  qemu-img convert -f raw -O qcow2 $TEMP_PATH${IMAGES} $TEMP_PATH${IMAGES2}
+  wget $TEMPLATE -P $TEMP_PATH/
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES2} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES2 --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -34,29 +31,25 @@ create_ubunut22.04() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES2 $STORAGE
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID} 
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
-rm -r $TEMP_PATH${IMAGES2}
+rm -r $TEMP_PATH/$IMAGES
+
 }
 
 create_ubuntu24.04() {
-  NAME="ubuntu24.04-template"
-  VMID="8011"
-  TEMPLATE="https://cloud-images.ubuntu.com/noble/20250122/noble-server-cloudimg-amd64.img"
-  TEMP_PATH="/opt/"
-  IMAGES="noble-server-cloudimg-amd64.img"
-  IMAGES2="noble-server-cloudimg-amd64.qcow2"
-  SNIPPET=
+  NAME=ubuntu24.04-template
+  VMID=8011
+  TEMPLATE=https://cloud-images.ubuntu.com/noble/20250122/noble-server-cloudimg-amd64.img
+  IMAGES2=noble-server-cloudimg-amd64.img
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
-  qemu-img convert -f raw -O qcow2 $TEMP_PATH${IMAGES} $TEMP_PATH${IMAGES2}
+  wget $TEMPLATE -P $TEMP_PATH/
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES2} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES2 --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -66,26 +59,24 @@ create_ubuntu24.04() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES2 $STORAGE
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
-rm -r $TEMP_PATH${IMAGES2}
+rm -r $TEMP_PATH/$IMAGES
+
 }
 create_alma8.10() {
-  NAME="alma8.10-template"
-  VMID="8012"
-  TEMPLATE="https://almalinux.mirror.liquidtelecom.com/8.10/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2"
-  TEMP_PATH="/opt/"
-  IMAGES="AlmaLinux-8-GenericCloud-latest.x86_64.qcow2"
-  SNIPPET=
+  NAME=alma8.10-template
+  VMID=8012
+  TEMPLATE=https://almalinux.mirror.liquidtelecom.com/8.10/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2
+  IMAGES=AlmaLinux-8-GenericCloud-latest.x86_64.qcow2
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
+  wget $TEMPLATE -P $TEMP_PATH/
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -95,25 +86,23 @@ create_alma8.10() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES $STORAGE --format qcow2 
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH/$IMAGES
 }
 create_alma9() {
-  NAME="alma8.10-template"
-  VMID="8013"
-  TEMPLATE="https://almalinux.mirror.liquidtelecom.com/9.5/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"
-  TEMP_PATH="/opt/"
-  IMAGES="AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"
-  SNIPPET=
+  NAME=alma8.10-template
+  VMID=8013
+  TEMPLATE=https://almalinux.mirror.liquidtelecom.com/9.5/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2
+  IMAGES=AlmaLinux-9-GenericCloud-latest.x86_64.qcow2
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
+  wget $TEMPLATE -P $TEMP_PATH/
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -123,25 +112,23 @@ create_alma9() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES $STORAGE --format qcow2
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH/$IMAGES
 }
 create_rocky8.10() {
-  NAME="rocky8.10-template"
-  VMID="8014"
-  TEMPLATE="https://dl.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud-Base.latest.x86_64.qcow2"
-  TEMP_PATH="/opt/"
-  IMAGES="Rocky-8-GenericCloud-Base.latest.x86_64.qcow2"
-  SNIPPET=
+  NAME=rocky8.10-template
+  VMID=8014
+  TEMPLATE=https://dl.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud-Base.latest.x86_64.qcow2
+  IMAGES=Rocky-8-GenericCloud-Base.latest.x86_64.qcow2
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
+  wget $TEMPLATE -P $TEMP_PATH/
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -151,26 +138,24 @@ create_rocky8.10() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES $STORAGE --format qcow2
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH/$IMAGES
 }
 
 create_rocky9() {
-  NAME="rocky9-template"
-  VMID="8015"
-  TEMPLATE="https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
-  TEMP_PATH="/opt/"
-  IMAGES="Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
-  SNIPPET=
+  NAME=rocky9-template
+  VMID=8015
+  TEMPLATE=https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
+  IMAGES=Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
+  wget $TEMPLATE -P $TEMP_PATH/
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -180,26 +165,24 @@ create_rocky9() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES $STORAGE --format qcow2
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH/$IMAGES
 }
 
 create_debian11() {
-  NAME="debian11-template"
-  VMID="8016"
-  TEMPLATE="https://cloud.debian.org/images/cloud/bullseye/20241202-1949/debian-11-generic-amd64-20241202-1949.qcow2"
-  TEMP_PATH="/opt/"
-  IMAGES="debian-11-generic-amd64-20241202-1949.qcow2"
-  SNIPPET=
+  NAME=debian11-template
+  VMID=8016
+  TEMPLATE=https://cloud.debian.org/images/cloud/bullseye/20241202-1949/debian-11-generic-amd64-20241202-1949.qcow2
+  IMAGES=debian-11-generic-amd64-20241202-1949.qcow2
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
+  wget $TEMPLATE -P $TEMP_PATH/
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -209,25 +192,23 @@ create_debian11() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES $STORAGE  --format qcow2
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID} 
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH/$IMAGES
 }
 create_debian12() {
-  NAME="debian12-template"
-  VMID="8017"
-  TEMPLATE="https://cloud.debian.org/images/cloud/bookworm/20250210-2019/debian-12-generic-amd64-20250210-2019.qcow2"
-  TEMP_PATH="/opt/"
-  IMAGES="debian-12-generic-amd64-20250210-2019.qcow2"
-  SNIPPET=
+  NAME=debian12-template
+  VMID=8017
+  TEMPLATE=https://cloud.debian.org/images/cloud/bookworm/20250210-2019/debian-12-generic-amd64-20250210-2019.qcow2
+  IMAGES=debian-12-generic-amd64-20250210-2019.qcow2
 # Donwload images
-  wget ${TEMPLATE} -P ${TEMP_PATH}
+  wget $TEMPLATE -P $TEMP_PATH
 # Configure images
-    virt-customize -a $TEMP_PATH${IMAGES} --update \
+    virt-customize -a $TEMP_PATH/$IMAGES --update \
     --install qemu-guest-agent \
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
@@ -237,13 +218,13 @@ create_debian12() {
     --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
-    qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
+    qm import disk $VMID $TEMP_PATH/$IMAGES $STORAGE --format qcow2 
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
-rm -r $TEMP_PATH${IMAGES}
+rm -r $TEMP_PATH/$IMAGES
 }
 
 while [ -n "$1" ]
