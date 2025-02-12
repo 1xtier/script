@@ -25,7 +25,6 @@ create_ubunut22.04() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
@@ -56,7 +55,6 @@ create_ubuntu24.04() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
@@ -86,7 +84,6 @@ create_alma8.10() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
@@ -116,7 +113,6 @@ create_alma9() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
@@ -146,7 +142,6 @@ create_rocky8.10() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
@@ -177,7 +172,6 @@ create_rocky9() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
@@ -208,7 +202,6 @@ create_debian11() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
@@ -238,7 +231,6 @@ create_debian12() {
     virt-customize -a $TEMP_PATH${IMAGES} --update
     virt-customize -a $TEMP_PATH${IMAGES} --install qemu-guest-agent
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'useradd cloud'
-    virt-customize -a $TEMP_PATH${IMAGES} --password cloud:sorax 
     virt-customize -a $TEMP_PATH${IMAGES} --root-password password:sorax
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'mkdir -p /home/cloud/.ssh'
     virt-customize -a $TEMP_PATH${IMAGES} --run-command 'usermod -aG sudo cloud'
