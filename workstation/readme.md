@@ -1,5 +1,5 @@
 ### pm-info 
-Config - path **/home/$USER/.myconfig/config.ini
+Config - path **/home/$USER/.myconfig/config.ini**
 ```ini
 [Config]
 address= <= IP - Address ProxmoxCluster
