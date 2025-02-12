@@ -86,7 +86,7 @@ create_alma8.10() {
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
     --run-command 'mkdir -p /home/cloud/.ssh' \
-    --run-command 'usermod -aG sudo cloud' \
+    --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
     --run-command 'chown -R cloud:cloud /home/cloud' \
     --run-command 'systemctl enable --now qemu-guest-agent'
@@ -115,7 +115,7 @@ create_alma9() {
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
     --run-command 'mkdir -p /home/cloud/.ssh' \
-    --run-command 'usermod -aG sudo cloud' \
+    --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
     --run-command 'chown -R cloud:cloud /home/cloud' \
     --run-command 'systemctl enable --now qemu-guest-agent'
@@ -144,7 +144,7 @@ create_rocky8.10() {
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
     --run-command 'mkdir -p /home/cloud/.ssh' \
-    --run-command 'usermod -aG sudo cloud' \
+    --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
     --run-command 'chown -R cloud:cloud /home/cloud' \
     --run-command 'systemctl enable --now qemu-guest-agent'
@@ -174,7 +174,7 @@ create_rocky9() {
     --run-command 'useradd -m -s /bin/bash cloud' \
     --root-password password:sorax \
     --run-command 'mkdir -p /home/cloud/.ssh' \
-    --run-command 'usermod -aG sudo cloud' \
+    --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
     --run-command 'chown -R cloud:cloud /home/cloud' \
     --run-command 'systemctl enable --now qemu-guest-agent'
