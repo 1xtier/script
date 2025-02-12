@@ -35,7 +35,7 @@ create_ubunut22.04() {
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
@@ -67,7 +67,7 @@ create_ubuntu24.04() {
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
@@ -96,7 +96,7 @@ create_alma8.10() {
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
@@ -124,7 +124,7 @@ create_alma9() {
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
@@ -152,7 +152,7 @@ create_rocky8.10() {
 
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
@@ -181,7 +181,7 @@ create_rocky9() {
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
@@ -210,7 +210,7 @@ create_debian11() {
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
@@ -238,7 +238,7 @@ create_debian12() {
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
-    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-9000-disk-0
+    qm set $VMID --scsihw virtio-scsi-pci --scsi0 $STORAGE:vm-${VMID}-disk-0
     qm set $VMID --boot c --bootdisk scsi0
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
