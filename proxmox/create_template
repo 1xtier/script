@@ -39,6 +39,7 @@ create_ubunut22.04() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 
 }
@@ -68,6 +69,7 @@ create_ubuntu24.04() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 
 }
@@ -96,6 +98,7 @@ create_alma8.10() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 }
 create_alma9() {
@@ -123,6 +126,7 @@ create_alma9() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 }
 create_rocky8.10() {
@@ -150,6 +154,7 @@ create_rocky8.10() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 }
 
@@ -178,6 +183,7 @@ create_rocky9() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 }
 
@@ -206,6 +212,7 @@ create_debian11() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 }
 create_debian12() {
@@ -233,6 +240,7 @@ create_debian12() {
     qm set $VMID --ide2 $STORAGE:cloudinit
     qm set $VMID --serial0 socket --vga serial0
     qm set $VMID --agent enabled=1
+    qm template $$VMID
 rm -r $TEMP_PATH/$IMAGES
 }
 
