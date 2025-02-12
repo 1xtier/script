@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e 
-STORAGE="storage-local"
+STORAGE=storage-local
 TEMP_PATH=/opt
 help_fo() {
   echo "--ubuntu22 | Create Template proxmox images Ubuntu 22.04"
