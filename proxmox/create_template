@@ -31,8 +31,7 @@ create_ubunut22.04() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG sudo cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
@@ -64,8 +63,7 @@ create_ubuntu24.04() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG sudo cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES2} $STORAGE
@@ -94,8 +92,7 @@ create_alma8.10() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -123,8 +120,7 @@ create_alma9() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -152,8 +148,7 @@ create_rocky8.10() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -182,8 +177,7 @@ create_rocky9() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG wheel cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -212,8 +206,7 @@ create_debian11() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG sudo cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
@@ -241,8 +234,7 @@ create_debian12() {
     --run-command 'mkdir -p /home/cloud/.ssh' \
     --run-command 'usermod -aG sudo cloud' \
     --ssh-inject cloud:file:/root/temp/id_ed25519.pub \
-    --run-command 'chown -R cloud:cloud /home/cloud' \
-    --run-command 'systemctl enable --now qemu-guest-agent'
+    --run-command 'chown -R cloud:cloud /home/cloud' 
 # Create TEMPLATE
     qm create $VMID --name $NAME --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
     qm importdisk $VMID $TEMP_PATH${IMAGES} $STORAGE
