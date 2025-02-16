@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+LOG=$(nginx -t)
+name=$1
+if [ -n "$1" ]; then
+        echo -e "\e[0;32mAdd simlink name:\e[0m \e[0;31m$1\e[0m"
+        ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/
+        nginx -t
+else
+        echo -e "\e[0;32mPlease: Command nginx-ln <name.conf>!\e[0m"
+fi
+
+if echo $LOG; then
+        echo "Nginx Config OK"
+        echo -e "\e[32m Reload nginx configure!\e[0m"
+        nginx -s reload
+else
+        echo -e "\e[31mCheck faild name: $1\e[0m"
+fi
