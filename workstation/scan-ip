@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+NORMAL=$(tput sgr0)
+echo "Clients dhcp-server"
+printf "%-18s %s\n" "IP" "Mac-address"
+echo "<-------------------------------->"
+for key in $(sudo nmap -v -sn -n $1 -oG - | awk '/Status: Up/{print $2}'); do
+   MAC=$(sudo nmap -sP -n $key | grep 'MAC Address:' | awk '{print $3}')
+printf "%-25s %s\n" "${RED}${key}${NORMAL}" "${GREEN}${MAC}${NORMAL}"
+done | sort
+exit 0
