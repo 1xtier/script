@@ -2,9 +2,9 @@
 set -e 
 GREEN='\e[32m' 
 RED='\e[31m'
-NORMAL='\e[0m' 
-disk_list="/dev/sd*1 /dev/mapper/*-*"
-
+NORMAL='\e[0m'
+#CHECK_FILESYSTEM=$(lsblk | grep -w "/" | awk '{print $6}')
+disk_list=df -h | grep -w "/" | awk '{print $1}'
 for disk in $disk_list
 do 
     
