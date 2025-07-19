@@ -36,6 +36,7 @@ else
     systemctl enable --now ssh
     add_keys
   else
+    echo "Xm-XM"
   fi
 fi
 }
