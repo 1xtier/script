@@ -1,5 +1,5 @@
 #!/bin/bash
-source /dev/stdin <<<$(curl -fsSL https://raw.githubusercontent.com/1xtier/test_repo/refs/heads/main/lib.sh)
+source /dev/stdin <<<$(curl -fsSL https://raw.githubusercontent.com/1xtier/lib_script/refs/heads/main/lib.sh)
 USERS=1xtier
 KEYLOAD=$(curl -s https://api.github.com/users/$USERS/keys | grep -w "key" | sed 's/[":,]//g' | sed 's/key//g' | sed '/^[[:space:]]*$/d')
 PATH_KEY=$HOME/.ssh/authorized_keys
