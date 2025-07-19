@@ -3,7 +3,7 @@ USERS=1xtier
 KEYLOAD=$(curl -s https://api.github.com/users/$USERS/keys | grep -w "key" | sed 's/[":,]//g' | sed 's/key//g' | sed '/^[[:space:]]*$/d')
 PATH_KEY=$HOME/.ssh/authorized_keys
 SSHDIR=$HOME/.ssh
-function add_keys() {
+function add_keys(){
 if [ -d $SSHDIR ]; then
    echo "$SSHDIR The directory exists"
    chmod 700 $SSHDIR
