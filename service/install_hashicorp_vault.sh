@@ -1,7 +1,7 @@
 #!/bin/bash
 RED='\033[31m'
 NORMAL='\033[0m'
-export VERSION-HASHICORP_VAULT="1.20.2"
+export VERSION_HASHICORP_VAULT="1.20.2"
 
 echo "At the time of writing this script, the latest version is 1.20.2"
 echo -e "Please check out the lastest version on:$RED https://hashicorp-releases.yandexcloud.net/vault$NORMAL"
