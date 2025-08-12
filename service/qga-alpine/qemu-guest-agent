@@ -1,0 +1,53 @@
+#!/sbin/openrc-run
+name="qemu-guest-agent"
+command="/usr/bin/qemu-ga"
+pidfile="/var/run/$name/$name.pid"
+start_stop_daemon_args="--args-for-start-stop-daemon"
+command_background="yes"
+depend() {
+        need net
+}
+
+start_pre() {
+        checkpath --directory --owner $command_user:$command_user --mode 0775 \
+                /run/$RC_SVCNAME /var/log/$RC_SVCNAME
+}
+
+start() {
+    ebegin "Starting mydaemon"
+    start-stop-daemon --start \
+        --exec $command  \
+        --pidfile $pidfile \
+        -- \
+        --args-for-mydaemon
+    eend $?
+}
+
+stop() {
+    ebegin "Starting mydaemon"
+    start-stop-daemon --stop \
+        --exec $command \
+        --pidfile $pidfile \
+        -- \
+        --args-for-mydaemon
+    eend $?
+}
+restart() {
+    ebegin "Starting mydaemon"
+    start-stop-daemon --restart \
+        --exec $command \
+        --pidfile $pidfile \
+        -- \
+        --args-for-mydaemon
+    eend $?
+}
+
+status() {
+    ebegin "Starting mydaemon"
+    start-stop-daemon --status \
+        --exec $command \
+        --pidfile $pidfile \
+        -- \
+        --args-for-mydaemon
+    eend $?
+}
